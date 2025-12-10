@@ -2,154 +2,126 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
-  <title>🎄 Dumb Quotes – Holiday Edition</title>
+  <title>❄ Dumb Quotes</title>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+  <!-- =======  LOOK & FEEL  ======= -->
   <style>
-    :root{
-      --bg:#f2f7ff;
-      --card:#ffffff;
-      --accent:#d32f2f;
-      --text:#111;
-      --subtle:#555;
-      --shadow:0 8px 20px rgba(0,0,0,.06);
-    }
-    *{box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+    :root{ --accent:#ff5252; --glow:rgba(255,82,82,.45); }
     body{
-      margin:0;
-      background:var(--bg);
-      color:var(--text);
-      min-height:100vh;
-      position:relative;
-      overflow-x:hidden;
+      margin:0;min-height:100vh;
+      background:linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+      color:#f5f5f5;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      display:flex;align-items:center;justify-content:center;padding:2rem;
     }
-    /* ---------- modern card ---------- */
     .container{
-      max-width:680px;
-      margin:4vh auto;
-      padding:2.5rem 3rem 3rem;
-      background:var(--card);
-      border-radius:18px;
-      box-shadow:var(--shadow);
+      width:100%;max-width:680px;
+      background:rgba(255,255,255,.06);
+      backdrop-filter:blur(12px) saturate(180%);
+      -webkit-backdrop-filter:blur(12px) saturate(180%);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:16px;
+      padding:2.5rem 3rem 3.5rem;
+      box-shadow:0 12px 40px rgba(0,0,0,.37);
     }
-    h1{font-size:2.2rem;margin-top:0;text-align:center}
-    h2{font-size:1.5rem;margin:2.5rem 0 1rem}
+    h1{font-size:2.3rem;margin:0 0 1.5rem;text-align:center;letter-spacing:.5px}
+    h2{font-size:1.4rem;margin:2.5rem 0 1rem;font-weight:500}
     input,textarea{
-      width:100%;
-      padding:.85rem 1rem;
-      border:1px solid #ddd;
-      border-radius:8px;
-      font-size:1rem;
-      transition:border .2s;
+      width:100%;padding:.9rem 1.1rem;margin:.6rem 0;border:none;
+      border-radius:8px;background:rgba(255,255,255,.08);color:#fff;font-size:1rem;
+      transition:box-shadow .25s;
     }
-    input:focus,textarea:focus{outline:none;border-color:var(--accent)}
+    input::placeholder,textarea::placeholder{color:rgba(255,255,255,.55)}
+    input:focus,textarea:focus{outline:none;box-shadow:0 0 0 2px var(--glow)}
     button{
-      width:100%;
-      padding:.9rem;
-      font-size:1.05rem;
-      border:none;
-      border-radius:8px;
-      background:var(--accent);
-      color:#fff;
-      cursor:pointer;
+      width:100%;padding:.9rem;margin-top:.6rem;font-size:1.05rem;border:none;
+      border-radius:8px;background:var(--accent);color:#fff;cursor:pointer;
       transition:background .2s;
     }
-    button:hover{background:#b71c1c}
+    button:hover{background:#e53935}
     blockquote{
-      margin:1.2rem 0;
-      padding:1rem 1.2rem;
-      border-left:4px solid var(--accent);
-      background:#fffafb;
-      border-radius:0 8px 8px 0;
-      font-style:italic;
+      margin:1.2rem 0;padding:1rem 1.2rem;border-left:3px solid var(--accent);
+      background:rgba(255,255,255,.05);border-radius:0 8px 8px 0;font-style:italic;
     }
-    small{color:var(--subtle)}
-    /* ---------- snow ---------- */
-    .snow{
-      position:fixed;
-      top:0;left:0;
-      width:100%;height:100%;
-      pointer-events:none;
-      z-index:1;
-      overflow:hidden;
-    }
-    .snow flake{
-      position:absolute;
-      top:-30px;
-      color:#fff;
-      font-size:1.2rem;
-      animation:fall 12s linear infinite;
-    }
-    @keyframes fall{
-      to{transform:translateY(110vh) rotate(360deg)}
-    }
+    small{color:rgba(255,255,255,.65)}
+    /* ---- snow ---- */
+    .snow{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:-1;overflow:hidden}
+    .snow flake{position:absolute;top:-30px;color:#fff;font-size:1rem;opacity:.8;animation:fall 14s linear infinite}
+    @keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
   </style>
 </head>
+
 <body>
-  <!-- falling snow -->
+  <!-- gentle snow -->
   <div class="snow" id="snow"></div>
 
   <div class="container">
-    <h1>🎄 Ho-Ho-Horrible Quotes 🎄</h1>
+    <h1>❄  Dumb Quotes  ❄</h1>
 
     <form id="addForm">
-      <input id="who" placeholder="Who dropped this wisdom?" required>
+      <input id="who" placeholder="Who said it?" required>
       <textarea id="text" placeholder="Quote…" required rows="3"></textarea>
-      <button type="submit">Add to the Naughty List</button>
+      <button type="submit">Add Dumb Quote</button>
     </form>
 
-    <h2>The Wall of Shame (snow-capped)</h2>
+    <h2>Wall of Fame</h2>
     <div id="quotes">Loading…</div>
   </div>
 
-<script>
-/* ---------- repo config ---------- */
-const REPO = 'YOUR_USERNAME/dumb-quotes';   // <-- change only this
-const LABEL = 'quote';
+  <!-- =======  SCRIPTS  ======= -->
+  <script>
+  /* ---- snow ---- */
+  const snowBox=document.getElementById('snow');
+  function addFlake(){
+    const f=document.createElement('div');
+    f.className='flake'; f.innerHTML='❄';
+    f.style.left=Math.random()*100+'%';
+    f.style.animationDuration=(10+Math.random()*8)+'s';
+    f.style.opacity=.5+.5*Math.random();
+    snowBox.appendChild(f);
+    setTimeout(()=>f.remove(),20000);
+  }
+  setInterval(addFlake,250);
+  for(let i=0;i<50;i++) setTimeout(addFlake,i*60);
 
-/* ---------- snow ---------- */
-const snowBox=document.getElementById('snow');
-function addFlake(){
-  const f=document.createElement('div');
-  f.className='flake';
-  f.innerHTML='❄';
-  f.style.left=Math.random()*100+'%';
-  f.style.animationDuration=(8+Math.random()*6)+'s';
-  f.style.opacity=.6+.4*Math.random();
-  snowBox.appendChild(f);
-  setTimeout(()=>f.remove(),15000);
-}
-setInterval(addFlake,300);
-for(let i=0;i<40;i++) setTimeout(addFlake,i*80);
+  /* ---- config ---- */
+  const API_URL = '/.netlify/functions/add-quote';   // Netlify function path
+  const REPO    = 'YOUR_USERNAME/dumb-quotes';      // used only for reading
 
-/* ---------- load quotes ---------- */
-async function load(){
-  const res=await fetch(`https://api.github.com/repos/${REPO}/issues?labels=${LABEL}&state=open&per_page=100`);
-  const issues=await res.json();
-  const box=document.getElementById('quotes');
-  box.innerHTML='';
-  issues.reverse().forEach(iss=>{
-    const q=document.createElement('blockquote');
-    q.textContent=iss.body;
-    const auth=document.createElement('small');
-    auth.textContent='— '+iss.title;
-    q.appendChild(document.createElement('br'));
-    q.appendChild(auth);
-    box.appendChild(q);
+  /* ---- load quotes ---- */
+  async function load(){
+    const res = await fetch(`https://api.github.com/repos/${REPO}/issues?labels=quote&state=open&per_page=100`);
+    const issues = await res.json();
+    const box = document.getElementById('quotes');
+    box.innerHTML = '';
+    issues.reverse().forEach(iss=>{
+      const q=document.createElement('blockquote');
+      q.textContent=iss.body;
+      const auth=document.createElement('small');
+      auth.textContent='— '+iss.title;
+      q.appendChild(document.createElement('br'));
+      q.appendChild(auth);
+      box.appendChild(q);
+    });
+  }
+  load();
+
+  /* ---- add quote ---- */
+  document.getElementById('addForm').addEventListener('submit',async e=>{
+    e.preventDefault();
+    const who=document.getElementById('who').value.trim();
+    const text=document.getElementById('text').value.trim();
+    if(!who||!text)return alert('Both fields required');
+
+    const res=await fetch(API_URL,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({who,text})
+    });
+    if(res.ok){document.getElementById('addForm').reset(); load();}
+    else alert('Sorry, try again later');
   });
-}
-load();
-
-/* ---------- add quote ---------- */
-document.getElementById('addForm').addEventListener('submit',e=>{
-  e.preventDefault();
-  const who=document.getElementById('who').value.trim();
-  const text=document.getElementById('text').value.trim();
-  if(!who||!text)return alert('Both fields required');
-  const title=encodeURIComponent(who);
-  const body=encodeURIComponent(text);
-  window.open(`https://github.com/${REPO}/issues/new?title=${title}&body=${body}&labels=${LABEL}`,'_blank');
-  setTimeout(load,4000);
-});
-</script>
+  </script>
 </body>
 </html>
