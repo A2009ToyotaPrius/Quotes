@@ -5,7 +5,6 @@
   <title>🔥 Roast Archive – Christmas Edition</title>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <style>
-    /* ---------- same Christmas theme ---------- */
     :root{
       --pine:#0b2e13;
       --crimson:#d62828;
@@ -18,86 +17,49 @@
     body{
       min-height:100vh;
       background:radial-gradient(ellipse at top, #05111d 0%, #0a1f2e 60%, var(--pine) 100%);
-      color:var(--frost);
-      font-family:var(--font);
-      display:flex;flex-direction:column;
+      color:var(--frost);font-family:var(--font);display:flex;flex-direction:column;
     }
     nav{
       position:sticky;top:0;z-index:100;
-      background:var(--glass);
-      backdrop-filter:blur(12px);
+      background:var(--glass);backdrop-filter:blur(12px);
       border-bottom:1px solid rgba(255,255,255,.1);
     }
     .nav-inner{
-      max-width:880px;margin:auto;
-      display:flex;align-items:center;justify-content:space-between;
+      max-width:880px;margin:auto;display:flex;align-items:center;justify-content:space-between;
       padding:.6rem 1.2rem;
     }
     .brand{font-size:1.3rem;font-weight:600;letter-spacing:.5px}
     .menu{display:flex;gap:1.5rem;list-style:none}
     .menu li{position:relative}
-    .menu a{
-      color:var(--frost);text-decoration:none;
-      padding:.4rem .7rem;border-radius:4px;
-      transition:background .2s;
-    }
+    .menu a{color:var(--frost);text-decoration:none;padding:.4rem .7rem;border-radius:4px;transition:background .2s}
     .menu a:hover{background:rgba(255,255,255,.12)}
     .dropdown-content{
-      position:absolute;top:100%;left:0;
-      background:var(--glass);
-      backdrop-filter:blur(12px);
-      border:1px solid rgba(255,255,255,.1);
-      border-radius:6px;
-      min-width:160px;
-      display:none;flex-direction:column;gap:.2rem;
-      padding:.4rem 0;
+      position:absolute;top:100%;left:0;background:var(--glass);backdrop-filter:blur(12px);
+      border:1px solid rgba(255,255,255,.1);border-radius:6px;min-width:160px;
+      display:none;flex-direction:column;gap:.2rem;padding:.4rem 0;
     }
     .dropdown:hover .dropdown-content{display:flex}
     .dropdown-content a{padding:.5rem .9rem;font-size:.9rem}
-
     .container{
-      width:90%;max-width:680px;margin:3rem auto 4rem;
-      background:var(--glass);
-      backdrop-filter:blur(12px) saturate(180%);
-      border:1px solid rgba(255,255,255,.1);
-      border-radius:16px;
-      padding:2.5rem 3rem 3.5rem;
-      box-shadow:0 12px 40px rgba(0,0,0,.4);
+      width:90%;max-width:680px;margin:3rem auto 4rem;background:var(--glass);
+      backdrop-filter:blur(12px) saturate(180%);border:1px solid rgba(255,255,255,.1);
+      border-radius:16px;padding:2.5rem 3rem 3.5rem;box-shadow:0 12px 40px rgba(0,0,0,.4);
     }
     h1{font-size:2.3rem;text-align:center;letter-spacing:.5px;margin-bottom:1.5rem}
-    blockquote{
-      margin:1.2rem 0;padding:1rem 1.2rem;
-      border-left:3px solid var(--crimson);
-      background:rgba(255,255,255,.05);
-      border-radius:0 8px 8px 0;font-style:italic;
-    }
+    blockquote{margin:1.2rem 0;padding:1rem 1.2rem;border-left:3px solid var(--crimson);
+      background:rgba(255,255,255,.05);border-radius:0 8px 8px 0;font-style:italic;}
     small{color:rgba(255,255,255,.65)}
     .add-wrap{text-align:center;margin:.3rem 0 1.5rem}
-    .add-btn{
-      display:inline-flex;align-items:center;gap:.4rem;
-      background:var(--crimson);color:#fff;
-      padding:.55rem 1.3rem;border-radius:6px;text-decoration:none;font-size:.95rem;
-      transition:background .2s;
-    }
+    .add-btn{display:inline-flex;align-items:center;gap:.4rem;background:var(--crimson);color:#fff;
+      padding:.55rem 1.3rem;border-radius:6px;text-decoration:none;font-size:.95rem;transition:background .2s}
     .add-btn:hover{background:#b71c1c}
-
-    .star{
-      position:fixed;top:0;left:0;width:100%;height:100%;
-      pointer-events:none;z-index:-1;
-    }
-    .star s{
-      position:absolute;width:2px;height:2px;
-      background:var(--frost);border-radius:50%;
-      animation:twinkle 4s ease-in-out infinite;
-    }
+    .star{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:-1}
+    .star s{position:absolute;width:2px;height:2px;background:var(--frost);border-radius:50%;animation:twinkle 4s ease-in-out infinite}
     @keyframes twinkle{0%,100%{opacity:0}50%{opacity:1}}
   </style>
 </head>
-
 <body>
   <div class="star" id="star"></div>
-
-  <!-- nav -->
   <nav>
     <div class="nav-inner">
       <div class="brand">🔥 Roast Archive</div>
@@ -106,7 +68,7 @@
           <a href="#">Sections ▾</a>
           <div class="dropdown-content">
             <a href="./">Wall of Fame</a>
-            <a href="roast.html">Roast Archive</a>
+            <a href="./roast.html">Roast Archive</a>
           </div>
         </li>
         <li><a href="https://github.com/a2009toyotaprius/Quotes/issues/new?labels=roast" target="_blank">Add Roast</a></li>
@@ -117,24 +79,14 @@
   <div class="container">
     <h1>🔥 Roast Archive</h1>
     <div class="add-wrap">
-      <a href="https://github.com/a2009toyotaprius/Quotes/issues/new?labels=roast"
-         target="_blank" rel="noopener" class="add-btn">✏️ Add Roast</a>
+      <a href="https://github.com/a2009toyotaprius/Quotes/issues/new?labels=roast" target="_blank" rel="noopener" class="add-btn">✏️ Add Roast</a>
     </div>
     <div id="roasts">Loading…</div>
   </div>
 
   <script>
-  /* ---- twinkle stars ---- */
   const starBox=document.getElementById('star');
-  for(let i=0;i<60;i++){
-    const s=document.createElement('s');
-    s.style.left=Math.random()*100+'%';
-    s.style.top=Math.random()*100+'%';
-    s.style.animationDelay=Math.random()*4+'s';
-    starBox.appendChild(s);
-  }
-
-  /* ---- load ROASTS (label = roast) ---- */
+  for(let i=0;i<60;i++){const s=document.createElement('s');s.style.left=Math.random()*100+'%';s.style.top=Math.random()*100+'%';s.style.animationDelay=Math.random()*4+'s';starBox.appendChild(s);}
   const REPO='a2009toyotaprius/Quotes';
   async function load(){
     const res=await fetch(`https://api.github.com/repos/${REPO}/issues?labels=roast&state=open&per_page=100`);
@@ -142,13 +94,9 @@
     const box=document.getElementById('roasts');
     box.innerHTML='';
     issues.reverse().forEach(iss=>{
-      const q=document.createElement('blockquote');
-      q.textContent=iss.body;
-      const auth=document.createElement('small');
-      auth.textContent='— '+iss.title;
-      q.appendChild(document.createElement('br'));
-      q.appendChild(auth);
-      box.appendChild(q);
+      const q=document.createElement('blockquote');q.textContent=iss.body;
+      const auth=document.createElement('small');auth.textContent='— '+iss.title;
+      q.appendChild(document.createElement('br'));q.appendChild(auth);box.appendChild(q);
     });
   }
   load();
