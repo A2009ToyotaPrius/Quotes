@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
-  <title>❄ Dumb Quotes – Christmas Edition</title>
+  <title>❄ Dumb Quotes – Wall of Fame</title>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <style>
     /* ---------- Christmas colour scheme ---------- */
@@ -102,20 +102,18 @@
 </head>
 
 <body>
-  <!-- twinkle canvas -->
   <div class="star" id="star"></div>
 
-  <!-- nav with dropdowns -->
+  <!-- nav -->
   <nav>
     <div class="nav-inner">
       <div class="brand">❄ Dumb Quotes</div>
       <ul class="menu">
         <li class="dropdown">
-          <a href="#">Categories ▾</a>
+          <a href="#">Sections ▾</a>
           <div class="dropdown-content">
-            <a href="#fame">Wall of Fame</a>
-            <a href="#roast">Roast Archive</a>
-            <a href="#random">Random</a>
+            <a href="./">Wall of Fame</a>
+            <a href="roast.html">Roast Archive</a>
           </div>
         </li>
         <li><a href="https://github.com/a2009toyotaprius/Quotes/issues/new?labels=quote" target="_blank">Add Quote</a></li>
@@ -123,14 +121,11 @@
     </div>
   </nav>
 
-  <!-- main card -->
   <div class="container">
-    <h1 id="fame">Wall of Fame</h1>
+    <h1>Wall of Fame</h1>
     <div class="add-wrap">
       <a href="https://github.com/a2009toyotaprius/Quotes/issues/new?labels=quote"
-         target="_blank" rel="noopener" class="add-btn">
-        ✏️ Add Quote
-      </a>
+         target="_blank" rel="noopener" class="add-btn">✏️ Add Quote</a>
     </div>
     <div id="quotes">Loading…</div>
   </div>
@@ -146,7 +141,7 @@
     starBox.appendChild(s);
   }
 
-  /* ---- load quotes ---- */
+  /* ---- load QUOTES (label = quote) ---- */
   const REPO='a2009toyotaprius/Quotes';
   async function load(){
     const res=await fetch(`https://api.github.com/repos/${REPO}/issues?labels=quote&state=open&per_page=100`);
@@ -167,4 +162,5 @@
   </script>
 </body>
 </html>
+
 
