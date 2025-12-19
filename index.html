@@ -2,78 +2,149 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
-  <title>❄ Dumb Quotes</title>
+  <title>❄ Dumb Quotes – Christmas Edition</title>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <style>
-    :root{ --accent:#ff5252; --glow:rgba(255,82,82,.45); }
-    body{
-      margin:0;min-height:100vh;
-      background:linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
-      color:#f5f5f5;
-      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-      display:flex;align-items:center;justify-content:center;padding:2rem;
+    /* ---------- Christmas colour scheme ---------- */
+    :root{
+      --pine:#0b2e13;
+      --crimson:#d62828;
+      --glow:radial-gradient(circle,var(--crimson) 0%, transparent 70%);
+      --frost:#e0fbfc;
+      --glass:rgba(224,251,252,.08);
+      --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      min-height:100vh;
+      background:radial-gradient(ellipse at top, #05111d 0%, #0a1f2e 60%, var(--pine) 100%);
+      color:var(--frost);
+      font-family:var(--font);
+      display:flex;flex-direction:column;
+    }
+
+    /* ---------- glass-morphism nav ---------- */
+    nav{
+      position:sticky;top:0;z-index:100;
+      background:var(--glass);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(255,255,255,.1);
+    }
+    .nav-inner{
+      max-width:880px;margin:auto;
+      display:flex;align-items:center;justify-content:space-between;
+      padding:.6rem 1.2rem;
+    }
+    .brand{font-size:1.3rem;font-weight:600;letter-spacing:.5px}
+    .menu{display:flex;gap:1.5rem;list-style:none}
+    .menu li{position:relative}
+    .menu a{
+      color:var(--frost);text-decoration:none;
+      padding:.4rem .7rem;border-radius:4px;
+      transition:background .2s;
+    }
+    .menu a:hover{background:rgba(255,255,255,.12)}
+
+    /* ---------- dropdown ---------- */
+    .dropdown-content{
+      position:absolute;top:100%;left:0;
+      background:var(--glass);
+      backdrop-filter:blur(12px);
+      border:1px solid rgba(255,255,255,.1);
+      border-radius:6px;
+      min-width:160px;
+      display:none;flex-direction:column;gap:.2rem;
+      padding:.4rem 0;
+    }
+    .dropdown:hover .dropdown-content{display:flex}
+    .dropdown-content a{padding:.5rem .9rem;font-size:.9rem}
+
+    /* ---------- main card ---------- */
     .container{
-      width:100%;max-width:680px;
-      background:rgba(255,255,255,.06);
+      width:90%;max-width:680px;margin:3rem auto 4rem;
+      background:var(--glass);
       backdrop-filter:blur(12px) saturate(180%);
-      -webkit-backdrop-filter:blur(12px) saturate(180%);
-      border:1px solid rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.1);
       border-radius:16px;
       padding:2.5rem 3rem 3.5rem;
-      box-shadow:0 12px 40px rgba(0,0,0,.37);
+      box-shadow:0 12px 40px rgba(0,0,0,.4);
     }
-    h1{font-size:2.3rem;margin:0 0 1.5rem;text-align:center;letter-spacing:.5px}
+    h1{font-size:2.3rem;text-align:center;letter-spacing:.5px;margin-bottom:1.5rem}
     h2{font-size:1.4rem;margin:2.5rem 0 .5rem;font-weight:500}
     blockquote{
-      margin:1.2rem 0;padding:1rem 1.2rem;border-left:3px solid var(--accent);
-      background:rgba(255,255,255,.05);border-radius:0 8px 8px 0;font-style:italic;
+      margin:1.2rem 0;padding:1rem 1.2rem;
+      border-left:3px solid var(--crimson);
+      background:rgba(255,255,255,.05);
+      border-radius:0 8px 8px 0;font-style:italic;
     }
     small{color:rgba(255,255,255,.65)}
-    /* ---- gentle snow ---- */
-    .snow{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:-1;overflow:hidden}
-    .snow flake{position:absolute;top:-30px;color:#fff;font-size:1rem;opacity:.8;animation:fall 14s linear infinite}
-    @keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
-    /* ---- add-quote link (README style) ---- */
     .add-wrap{text-align:center;margin:.3rem 0 1.5rem}
-    .add-btn{display:inline-flex;align-items:center;gap:.4rem;background:var(--accent);color:#fff;padding:.55rem 1.3rem;border-radius:6px;text-decoration:none;font-size:.95rem;transition:background .2s}
-    .add-btn:hover{background:#e53935}
+    .add-btn{
+      display:inline-flex;align-items:center;gap:.4rem;
+      background:var(--crimson);color:#fff;
+      padding:.55rem 1.3rem;border-radius:6px;text-decoration:none;font-size:.95rem;
+      transition:background .2s;
+    }
+    .add-btn:hover{background:#b71c1c}
+
+    /* ---------- twinkle stars ---------- */
+    .star{
+      position:fixed;top:0;left:0;width:100%;height:100%;
+      pointer-events:none;z-index:-1;
+    }
+    .star s{
+      position:absolute;width:2px;height:2px;
+      background:var(--frost);border-radius:50%;
+      animation:twinkle 4s ease-in-out infinite;
+    }
+    @keyframes twinkle{0%,100%{opacity:0}50%{opacity:1}}
   </style>
 </head>
 
 <body>
-  <!-- snow -->
-  <div class="snow" id="snow"></div>
+  <!-- twinkle canvas -->
+  <div class="star" id="star"></div>
 
+  <!-- nav with dropdowns -->
+  <nav>
+    <div class="nav-inner">
+      <div class="brand">❄ Dumb Quotes</div>
+      <ul class="menu">
+        <li class="dropdown">
+          <a href="#">Categories ▾</a>
+          <div class="dropdown-content">
+            <a href="#fame">Wall of Fame</a>
+            <a href="#roast">Roast Archive</a>
+            <a href="#random">Random</a>
+          </div>
+        </li>
+        <li><a href="https://github.com/a2009toyotaprius/Quotes/issues/new?labels=quote" target="_blank">Add Quote</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- main card -->
   <div class="container">
-    <h1>❄  Dumb Quotes  ❄</h1>
-
-    <!-- README-style "Add Quote" button -->
+    <h1 id="fame">Wall of Fame</h1>
     <div class="add-wrap">
       <a href="https://github.com/a2009toyotaprius/Quotes/issues/new?labels=quote"
          target="_blank" rel="noopener" class="add-btn">
         ✏️ Add Quote
       </a>
     </div>
-
-    <h2>Wall of Fame</h2>
     <div id="quotes">Loading…</div>
   </div>
 
   <script>
-  /* ---- snow ---- */
-  const snowBox=document.getElementById('snow');
-  function addFlake(){
-    const f=document.createElement('div');
-    f.className='flake'; f.innerHTML='❄';
-    f.style.left=Math.random()*100+'%';
-    f.style.animationDuration=(10+Math.random()*8)+'s';
-    f.style.opacity=.5+.5*Math.random();
-    snowBox.appendChild(f);
-    setTimeout(()=>f.remove(),20000);
+  /* ---- twinkle stars ---- */
+  const starBox=document.getElementById('star');
+  for(let i=0;i<60;i++){
+    const s=document.createElement('s');
+    s.style.left=Math.random()*100+'%';
+    s.style.top=Math.random()*100+'%';
+    s.style.animationDelay=Math.random()*4+'s';
+    starBox.appendChild(s);
   }
-  setInterval(addFlake,250);
-  for(let i=0;i<50;i++) setTimeout(addFlake,i*60);
 
   /* ---- load quotes ---- */
   const REPO='a2009toyotaprius/Quotes';
